@@ -35,6 +35,7 @@
         "order": 5,
         "title": "Image",
         "type": "string",
+        "description": "Optionally provide an image you would like included before your message",
         "format": "image"
       },
       "message": {
@@ -47,7 +48,39 @@
       "link": {
         "order": 20,
         "title": "Link",
-        "type": "string"
+        "description": "Optionally provide the URL of a page you would like your visitors sent to when they click on the message.",
+        "type": "string",
+        "placeholder": "http://..."
+      },
+      "hideBeforeToggle": {
+        "order": 40,
+        "type": "boolean",
+        "title": "Hide the message before a specific date",
+        "default": false
+      },
+      "hideBefore": {
+        "order": 45,
+        "type": "string",
+        "format": "date",
+        "title": "Hide Before",
+        "description": "The message will always be shown in the preview, but it will be hidden to your site’s visitors before this date.",
+        "showIf": "hideBeforeToggle",
+        "default": "30-12-2015"
+      },
+      "hideAfterToggle": {
+        "order": 50,
+        "type": "boolean",
+        "title": "Hide the message after a specific date",
+        "default": true
+      },
+      "hideAfter": {
+        "order": 55,
+        "type": "string",
+        "format": "date",
+        "title": "Hide After",
+        "description": "The message will always be shown in the preview, but it will be hidden to your site’s visitors after this date.",
+        "showIf": "hideAfterToggle",
+        "default": "1-1-2016"
       }
     }
   }

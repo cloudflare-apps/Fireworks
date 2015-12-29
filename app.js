@@ -92,10 +92,24 @@
   }
 
   var IS_PREVIEW = INSTALL_ID === 'preview';
+  var ONE_DAY_IN_MS = 1000 * 60 * 60 * 24;
 
-  if (IS_PREVIEW || !localStorage.eagerFireworksShown || localStorage.eagerFireworksShown !== JSON.stringify(options)){
-    show();
+  var outsideDates = false;
+  if (!IS_PREVIEW){
+    if (options.hideBeforeToggle && options.hideBefore){
+      if (new Date(options.hideBefore) > new Date())
+        outsideDates = true;
+    }
+    if (options.hideAfterToggle && options.hideAfter){
+      if ((+new Date(options.hideAfter) + ONE_DAY_IN_MS) < new Date())
+        outsideDates = true;
+    }
   }
+
+  var alreadyShown = localStorage.eagerFireworksShown && localStorage.eagerFireworksShown === JSON.stringify(options);
+
+  if ((!outsideDates && !alreadyShown) || IS_PREVIEW)
+    show();
 
   INSTALL_SCOPE.setOptions = setOptions;
 
