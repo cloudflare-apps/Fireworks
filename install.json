@@ -1,0 +1,54 @@
+{
+  "resources": {
+    "body": [
+      {
+        "type": "style",
+        "src": "./app.css"
+      },
+      {
+        "type": "script",
+        "src": "./fireworks.js"
+      },
+      {
+        "type": "script",
+        "src": "./app.js"
+      }
+    ]
+  },
+  "preview": {
+    "handlers": [
+      {
+        "options": ["*"],
+        "execute": "INSTALL_SCOPE.setOptions(INSTALL_OPTIONS)"
+      }
+    ]
+  },
+  "options": {
+    "properties": {
+      "heading": {
+        "order": 0,
+        "title": "Heading",
+        "type": "string",
+        "default": "Happy New Year!"
+      },
+      "image": {
+        "order": 5,
+        "title": "Image",
+        "type": "string",
+        "format": "image"
+      },
+      "message": {
+        "order": 10,
+        "title": "Message",
+        "type": "string",
+        "format": "markdown",
+        "default": "Wishing you a wonderful New Year, from my family, to yours!"
+      },
+      "link": {
+        "order": 20,
+        "title": "Link",
+        "type": "string"
+      }
+    }
+  }
+}

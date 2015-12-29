@@ -1,0 +1,60 @@
+.eager-fireworks-canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1300;
+}
+
+eager-dialog {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  align-items: center;
+  justify-content: center;
+  z-index: 1301;
+
+  display: none;
+  opacity: 0;
+  transition: opacity 500ms ease;
+}
+
+  .eager-dialog-shown {
+    opacity: 1;
+    display: block;
+    display: flex;
+  }
+
+eager-dialog-content {
+  display: block;
+  margin: 2em 3em;
+  background: rgba(0, 0, 0, 0.8);
+  color: white;
+  padding: 2em;
+}
+
+  eager-dialog-content p {
+    text-indent: 0;
+    margin: 1em 0;
+  }
+
+  eager-dialog-content img {
+    display: block;
+    margin: 1em 0;
+    max-width: 100%;
+  }
+
+eager-dialog-close::after {
+  position: fixed;
+  top: 0;
+  right: 0;
+  padding: 1em;
+  content: "✕";
+  display: block;
+  cursor: pointer;
+}
+
+  eager-dialog-close:hover::after {
+    text-shadow: 0 0 2px rgba(0, 0, 0, 0.8);
+    color: white;
+  }
