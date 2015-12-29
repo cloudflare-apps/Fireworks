@@ -2,7 +2,7 @@
   position: fixed;
   top: 0;
   left: 0;
-  z-index: 1300;
+  z-index: 1306;
 }
 
 eager-dialog {
@@ -12,7 +12,7 @@ eager-dialog {
   right: 0;
   align-items: center;
   justify-content: center;
-  z-index: 1301;
+  z-index: 1305;
 
   display: none;
   opacity: 0;
