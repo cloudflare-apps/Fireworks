@@ -5,13 +5,11 @@
 
   var options = INSTALL_OPTIONS;
 
-  options.link = ensureProtocol(options.link);
-
   function ensureProtocol(url) {
     if (!url || url === '') {
       return url;
     }
-    if (!/^https?:\/\//i.test(url)) {
+    if (!/^https?:\/\//i.test(url) && /^[^\/]+\.[^\/]+\//.test(url)) {
       return 'http://' + url;
     }
     return url;
@@ -19,7 +17,6 @@
 
   function setOptions(opts) {
     options = opts;
-    options.link = ensureProtocol(options.link);
 
     render();
 
@@ -45,7 +42,7 @@
     var html = '';
     if (options.image) {
       if (options.link) {
-        html += '<a href="' + options.link + '">';
+        html += '<a href="' + ensureProtocol(options.link) + '">';
       }
       html += '<img src="' + options.image + '">';
       if (options.link) {
