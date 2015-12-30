@@ -1,6 +1,6 @@
 (function(){
 
-  if (!window.addEventListener)
+  if (!window.addEventListener || !window.localStorage)
     return;
 
   var options = INSTALL_OPTIONS;
