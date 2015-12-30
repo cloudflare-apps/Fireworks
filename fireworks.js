@@ -13,8 +13,8 @@
       launchIntv,
       stopped = false,
       slowFrameCount = 0,
-      lastFrameTime,
-      launchedThisTick = false;
+      launchDelay = 1500,
+      lastFrameTime;
 
   function launch() {
     if (rockets.length < 6) {
@@ -54,6 +54,8 @@
 
     if (SCREEN_WIDTH != window.innerWidth) {
       canvas.width = SCREEN_WIDTH = window.innerWidth;
+
+      launchDelay = Math.max(1500, 1000 * (1000 / SCREEN_WIDTH));
     }
     if (SCREEN_HEIGHT != window.innerHeight) {
       canvas.height = SCREEN_HEIGHT = window.innerHeight;
@@ -359,6 +361,14 @@
     };
   }
 
+  function startLaunching() {
+    if (stopped)
+      return;
+
+    launch();
+    setTimeout(startLaunching, launchDelay);
+  };
+
   function init() {
     canvas.className = 'eager-fireworks-canvas';
     document.body.appendChild(canvas);
@@ -367,27 +377,16 @@
   }
 
   function start() {
-    launch();
-    launchIntv = setInterval(function(){
-      // Prevent launches getting grouped if many intervals fire at once
-      if (launchedThisTick)
-        return
-
-      launchedThisTick = true;
-      setTimeout(function(){
-        launchedThisTick = false;
-      }, 0);
-
-      launch()
-    }, 1000);
     stopped = false;
     lastFrameTime = null;
+
+    startLaunching();
+
     loop();
     canvas.style.display = 'block';
   }
 
   function stop() {
-    clearInterval(launchIntv);
     stopped = true;
     canvas.style.display = 'none';
   }
