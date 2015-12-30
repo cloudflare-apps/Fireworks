@@ -64,12 +64,17 @@
     content.appendChild(closeButton);
   }
 
-  dialog.addEventListener('click', function(e){
-    if (e.target === dialog && shown){
-      hide();
-      e.preventDefault();
-    }
-  });
+  var boundEls = [backdrop, dialog];
+  for (var i=boundEls.length; i--;){
+    (function(i){
+      boundEls[i].addEventListener('click', function(e){
+        if (e.target === boundEls[i] && shown){
+          hide();
+          e.preventDefault();
+        }
+      });
+    })(i);
+  }
 
   var shown = false;
 
