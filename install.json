@@ -36,7 +36,7 @@
       "link": {
         "order": 2,
         "title": "Cover Link",
-        "description": "Optionally link the <strong>Cover Image</strong> to a URL of your choice.",
+        "description": "Optionally link the <strong>Cover Image</strong> to a URL of your choice. Relative URLs (e.g. <code class=\"inline\">/about</code>) are supported.",
         "type": "string",
         "placeholder": "http://..."
       },
