@@ -52,7 +52,7 @@
         "description": "You may include links and style the message with Markdown. <a target=\"_blank\" href=\"https://en.wikipedia.org/wiki/Markdown#Example\" class=\"more with-inherited-color\"><strong>Learn more</strong></a>",
         "type": "string",
         "format": "markdown",
-        "default": "Everyone here would love to wish you a wonderful, happy, New Year.\n\nSome [cool things](https://en.wikipedia.org/wiki/2016#Predicted_and_scheduled_events) are going to happen in 2016! :P\n\n— Your Name"
+        "default": "Everyone here would love to wish you a wonderful and happy New Year.\n\nSome [cool things](https://en.wikipedia.org/wiki/2016#Predicted_and_scheduled_events) are going to happen in 2016, get excited!\n\n— Your Friends"
       },
       "theme": {
         "order": 5,

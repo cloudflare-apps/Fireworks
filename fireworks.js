@@ -9,9 +9,12 @@
       particles = [],
       rockets = [],
       MAX_PARTICLES = 400,
+      particleLimit = MAX_PARTICLES,
       launchIntv,
       stopped = false,
-      colorCode = 0;
+      slowFrameCount = 0,
+      lastFrameTime,
+      launchedThisTick = false;
 
   function launch() {
     if (rockets.length < 6) {
@@ -29,6 +32,26 @@
   }
 
   function loop() {
+    if (lastFrameTime){
+      var delta = (+new Date) - lastFrameTime;
+    } else {
+      var delta = 16;
+    }
+
+    if (delta > 100){
+      slowFrameCount++;
+
+      if (slowFrameCount > 6)
+        particleLimit -= particleLimit / 3;
+    } else {
+      slowFrameCount = 0;
+
+      if (delta < 24 && particleLimit < MAX_PARTICLES)
+        particleLimit += particleLimit / 2;
+    }
+
+    lastFrameTime = +new Date;
+
     if (SCREEN_WIDTH != window.innerWidth) {
       canvas.width = SCREEN_WIDTH = window.innerWidth;
     }
@@ -40,20 +63,19 @@
     context.fillStyle = "rgba(0, 0, 0, 0)";
     context.fillRect(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
 
-    updateRockets();
-
-    updateFireworks();
+    updateRockets(delta);
+    updateFireworks(delta);
 
     if (!stopped){
       requestAnimationFrame(loop);
     }
   }
 
-  function updateRockets() {
+  function updateRockets(delta) {
     var existingRockets = [];
 
     for (var i = 0; i < rockets.length; i++) {
-      rockets[i].update();
+      rockets[i].update(delta);
       rockets[i].render(context);
 
       addSmoke(rockets[i].pos);
@@ -75,11 +97,11 @@
     rockets = existingRockets;
   }
 
-  function updateFireworks() {
+  function updateFireworks(delta) {
     var existingParticles = [];
 
     for (var i = 0; i < particles.length; i++) {
-      particles[i].update();
+      particles[i].update(delta);
 
       // render and save particles that can be rendered
       if (particles[i].exists()) {
@@ -91,7 +113,7 @@
     // update array with existing particles - old particles should be garbage collected
     particles = existingParticles;
 
-    while (particles.length > MAX_PARTICLES) {
+    while (particles.length > particleLimit) {
       particles.shift();
     }
   }
@@ -126,20 +148,22 @@
     this.color = 0;
   }
 
-  Particle.prototype.update = function() {
+  Particle.prototype.update = function(delta) {
+    var factor = delta / 32;
+
     // apply resistance
-    this.vel.x *= this.resistance;
-    this.vel.y *= this.resistance;
+    this.vel.x *= Math.pow(this.resistance, factor);
+    this.vel.y *= Math.pow(this.resistance, factor);
 
     // gravity down
-    this.vel.y += this.gravity;
+    this.vel.y += factor * this.gravity;
 
     // update position based on speed
-    this.pos.x += this.vel.x;
-    this.pos.y += this.vel.y;
+    this.pos.x += factor * this.vel.x;
+    this.pos.y += factor * this.vel.y;
 
     // shrink
-    this.size *= this.shrink;
+    this.size *= Math.pow(this.shrink, factor);
 
     // fade out
     this.alpha -= this.fade;
@@ -344,8 +368,20 @@
 
   function start() {
     launch();
-    launchIntv = setInterval(launch, 1000);
+    launchIntv = setInterval(function(){
+      // Prevent launches getting grouped if many intervals fire at once
+      if (launchedThisTick)
+        return
+
+      launchedThisTick = true;
+      setTimeout(function(){
+        launchedThisTick = false;
+      }, 0);
+
+      launch()
+    }, 1000);
     stopped = false;
+    lastFrameTime = null;
     loop();
     canvas.style.display = 'block';
   }
