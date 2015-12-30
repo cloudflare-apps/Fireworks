@@ -5,8 +5,21 @@
 
   var options = INSTALL_OPTIONS;
 
+  options.link = ensureProtocol(options.link);
+
+  function ensureProtocol(url) {
+    if (!url || url === '') {
+      return url;
+    }
+    if (!/^https?:\/\//i.test(url)) {
+      return 'http://' + url;
+    }
+    return url;
+  }
+
   function setOptions(opts) {
     options = opts;
+    options.link = ensureProtocol(options.link);
 
     render();
 
@@ -14,29 +27,44 @@
       show();
   }
 
-  var dialog = document.createElement('eager-dialog');
+  var backdrop = document.createElement('eager-fireworks-backdrop');
+  document.body.appendChild(backdrop);
+
+  var dialog = document.createElement('eager-fireworks-dialog');
   document.body.appendChild(dialog);
 
-  var content = document.createElement('eager-dialog-content');
+  var content = document.createElement('eager-fireworks-dialog-content');
   dialog.appendChild(content);
 
-  var closeButton = document.createElement('eager-dialog-close');
-  dialog.appendChild(closeButton);
+  var closeButton = document.createElement('eager-fireworks-dialog-close');
   closeButton.addEventListener('click', hide);
 
   function render() {
-    var text = '';
-    if (options.heading){
-      text += '<h2>' + options.heading + '</h2>';
-    }
+    dialog.setAttribute('eager-fireworks-theme', options.theme);
 
+    var html = '';
     if (options.image) {
-      text += '<img src="' + options.image + '">';
+      if (options.link) {
+        html += '<a href="' + options.link + '">';
+      }
+      html += '<img src="' + options.image + '">';
+      if (options.link) {
+        html += '</a>';
+      }
     }
 
-    text += options.message.html;
+    if (options.heading || options.message.html !== '') {
+      html += '<eager-fireworks-dialog-content-text>';
 
-    content.innerHTML = text;
+      if (options.heading) {
+        html += '<h2>' + options.heading + '</h2>';
+      }
+      html += options.message.html;
+      html += '</eager-fireworks-dialog-content-text>';
+    }
+
+    content.innerHTML = html;
+    content.appendChild(closeButton);
   }
 
   function handleClick(e) {
@@ -55,15 +83,6 @@
       if (currentNode.tagName == 'A') {
         return;
       }
-
-      if (currentNode == content) {
-        if (options.link) {
-          e.preventDefault();
-          document.location = options.link;
-        }
-
-        return;
-      }
     } while (currentNode = currentNode.parentNode);
   }
 
@@ -73,10 +92,10 @@
     INSTALL_SCOPE.fireworks.start();
 
     render();
-    dialog.className = 'eager-dialog-shown';
-    dialog.style.top = (document.body.scrollTop + 10) + 'px';
-
+    dialog.className = 'eager-is-fireworks-shown';
+    backdrop.className = 'eager-is-fireworks-shown';
     shown = true;
+
     localStorage.eagerFireworksShown = JSON.stringify(options);
 
     document.documentElement.addEventListener('click', handleClick);
@@ -86,6 +105,7 @@
     INSTALL_SCOPE.fireworks.stop();
 
     dialog.className = '';
+    backdrop.className = '';
     shown = false;
 
     document.documentElement.removeEventListener('click', handleClick);

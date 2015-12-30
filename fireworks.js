@@ -37,7 +37,7 @@
     }
 
     context.clearRect(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
-    context.fillStyle = "rgba(0, 0, 0, 0.2)";
+    context.fillStyle = "rgba(0, 0, 0, 0)";
     context.fillRect(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
 
     updateRockets();
@@ -160,7 +160,7 @@
 
     var gradient = c.createRadialGradient(x, y, 0.1, x, y, r);
     gradient.addColorStop(0.1, "rgba(255,255,255," + this.alpha + ")");
-    gradient.addColorStop(0.8, "hsla(" + this.color + ", 100%, 50%, " + this.alpha + ")");
+    gradient.addColorStop(0.8, "hsla(" + this.color + ", 100%, 75%, " + this.alpha + ")");
     gradient.addColorStop(1, "hsla(" + this.color + ", 100%, 50%, 0.1)");
 
     c.fillStyle = gradient;

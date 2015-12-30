@@ -25,41 +25,57 @@
   },
   "options": {
     "properties": {
+      "image": {
+        "order": 1,
+        "title": "Cover Image",
+        "description": "Optionally display an image above your message.",
+        "type": "string",
+        "format": "image",
+        "default": "//eager-app-images.imgix.net/IaYSbxMqTBGYpIrJJzSb_2016.png"
+      },
+      "link": {
+        "order": 2,
+        "title": "Cover Link",
+        "description": "Optionally link the <strong>Cover Image</strong> to a URL of your choice.",
+        "type": "string",
+        "placeholder": "http://..."
+      },
       "heading": {
-        "order": 0,
+        "order": 3,
         "title": "Heading",
         "type": "string",
         "default": "Happy New Year!"
       },
-      "image": {
-        "order": 5,
-        "title": "Image",
-        "type": "string",
-        "description": "Optionally provide an image you would like included before your message",
-        "format": "image"
-      },
       "message": {
-        "order": 10,
+        "order": 4,
         "title": "Message",
+        "description": "You may include links and style the message with Markdown. <a target=\"_blank\" href=\"https://en.wikipedia.org/wiki/Markdown#Example\" class=\"more with-inherited-color\"><strong>Learn more</strong></a>",
         "type": "string",
         "format": "markdown",
-        "default": "Wishing you a wonderful New Year, from my family, to yours!"
+        "default": "Everyone here would love to wish you a wonderful, happy, New Year.\n\nSome [cool things](https://en.wikipedia.org/wiki/2016#Predicted_and_scheduled_events) are going to happen in 2016! :P\n\n— Your Name"
       },
-      "link": {
-        "order": 20,
-        "title": "Link",
-        "description": "Optionally provide the URL of a page you would like your visitors sent to when they click on the message.",
+      "theme": {
+        "order": 5,
+        "title": "Theme",
         "type": "string",
-        "placeholder": "http://..."
+        "enum": [
+          "light",
+          "dark"
+        ],
+        "enumNames": {
+          "light": "Light",
+          "dark": "Dark"
+        },
+        "default": "light"
       },
       "hideBeforeToggle": {
-        "order": 40,
+        "order": 6,
         "type": "boolean",
         "title": "Hide the message before a specific date",
         "default": false
       },
       "hideBefore": {
-        "order": 45,
+        "order": 7,
         "type": "string",
         "format": "date",
         "title": "Hide Before",
@@ -68,13 +84,13 @@
         "default": "30-12-2015"
       },
       "hideAfterToggle": {
-        "order": 50,
+        "order": 8,
         "type": "boolean",
         "title": "Hide the message after a specific date",
         "default": true
       },
       "hideAfter": {
-        "order": 55,
+        "order": 9,
         "type": "string",
         "format": "date",
         "title": "Hide After",
