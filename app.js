@@ -77,7 +77,7 @@
         return;
       }
 
-      if (currentNode.tagName == 'A') {
+      if (currentNode.tagName == 'A' || currentNode == content) {
         return;
       }
     } while (currentNode = currentNode.parentNode);
