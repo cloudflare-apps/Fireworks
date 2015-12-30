@@ -93,7 +93,9 @@
     backdrop.className = 'eager-is-fireworks-shown';
     shown = true;
 
-    localStorage.eagerFireworksShown = JSON.stringify(options);
+    try {
+      localStorage.eagerFireworksShown = JSON.stringify(options);
+    } catch (e) {}
 
     document.documentElement.addEventListener('click', handleClick);
   }
