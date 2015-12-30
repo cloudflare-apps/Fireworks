@@ -64,24 +64,12 @@
     content.appendChild(closeButton);
   }
 
-  function handleClick(e) {
-    if (!shown)
-      return
-
-    var currentNode = e.target;
-
-    do {
-      if (!currentNode || currentNode == document.documentElement) {
-        e.preventDefault();
-        hide();
-        return;
-      }
-
-      if (currentNode.tagName == 'A' || currentNode == content) {
-        return;
-      }
-    } while (currentNode = currentNode.parentNode);
-  }
+  dialog.addEventListener('click', function(e){
+    if (e.target === dialog && shown){
+      hide();
+      e.preventDefault();
+    }
+  });
 
   var shown = false;
 
@@ -98,8 +86,6 @@
     } catch (e) {}
 
     document.body.scrollTop = 0;
-
-    document.documentElement.addEventListener('click', handleClick);
   }
 
   function hide() {
@@ -108,8 +94,6 @@
     dialog.className = '';
     backdrop.className = '';
     shown = false;
-
-    document.documentElement.removeEventListener('click', handleClick);
   }
 
   var IS_PREVIEW = INSTALL_ID === 'preview';

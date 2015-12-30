@@ -62,8 +62,6 @@
     }
 
     context.clearRect(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
-    context.fillStyle = "rgba(0, 0, 0, 0)";
-    context.fillRect(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
 
     updateRockets(delta);
     updateFireworks(delta);
