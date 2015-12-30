@@ -1,6 +1,6 @@
 (function(){
 
-  if (!window.addEventListener || !window.localStorage)
+  if (!window.addEventListener || !window.localStorage || !window.requestAnimationFrame)
     return;
 
   var options = INSTALL_OPTIONS;
@@ -96,6 +96,8 @@
     try {
       localStorage.eagerFireworksShown = JSON.stringify(options);
     } catch (e) {}
+
+    document.body.scrollTop = 0;
 
     document.documentElement.addEventListener('click', handleClick);
   }
