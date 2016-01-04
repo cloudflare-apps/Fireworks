@@ -81,13 +81,13 @@
         "title": "Hide Before",
         "description": "The message will always be shown in the preview, but it will be hidden to your site’s visitors before this date.",
         "showIf": "hideBeforeToggle",
-        "default": "30-12-2015"
+        "default": "30-12-2016"
       },
       "hideAfterToggle": {
         "order": 8,
         "type": "boolean",
         "title": "Hide the message after a specific date",
-        "default": true
+        "default": false
       },
       "hideAfter": {
         "order": 9,
@@ -96,7 +96,7 @@
         "title": "Hide After",
         "description": "The message will always be shown in the preview, but it will be hidden to your site’s visitors after this date.",
         "showIf": "hideAfterToggle",
-        "default": "1-1-2016"
+        "default": "1-1-2017"
       }
     }
   }
