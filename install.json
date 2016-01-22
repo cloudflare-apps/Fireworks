@@ -68,14 +68,25 @@
         },
         "default": "light"
       },
-      "hideBeforeToggle": {
+      "showFrequency": {
         "order": 6,
+        "title": "Show frequency",
+        "type": "string",
+        "default": "once",
+        "enum": ["once", "always"],
+        "enumNames": {
+          "once": "Show to each visitor once",
+          "always": "Show on every page view"
+        }
+      },
+      "hideBeforeToggle": {
+        "order": 7,
         "type": "boolean",
         "title": "Hide the message before a specific date",
         "default": false
       },
       "hideBefore": {
-        "order": 7,
+        "order": 8,
         "type": "string",
         "format": "date",
         "title": "Hide Before",
@@ -84,13 +95,13 @@
         "default": "30-12-2016"
       },
       "hideAfterToggle": {
-        "order": 8,
+        "order": 9,
         "type": "boolean",
         "title": "Hide the message after a specific date",
         "default": false
       },
       "hideAfter": {
-        "order": 9,
+        "order": 10,
         "type": "string",
         "format": "date",
         "title": "Hide After",

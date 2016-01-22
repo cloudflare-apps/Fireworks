@@ -116,7 +116,7 @@
     }
   }
 
-  var alreadyShown = localStorage.eagerFireworksShown && localStorage.eagerFireworksShown === JSON.stringify(options);
+  var alreadyShown = options.showFrequency === 'once' && localStorage.eagerFireworksShown && localStorage.eagerFireworksShown === JSON.stringify(options);
 
   if ((!outsideDates && !alreadyShown) || IS_PREVIEW)
     show();
